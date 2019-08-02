@@ -59,3 +59,8 @@ All available options
         default      => 'MyApp::Model::Pg',
         params => {Pg => {uri => 'postgresql://user@/mydb'}}
     };
+    
+# DESCRIPTION
+ 
+[Mojolicious::Plugin::Model::DB](https://metacpan.org/pod/Mojolicious::Plugin::Model::DB) It is an extension of the module Mojolicious::Plugin::Model, see more in [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::Plugin::Model)
+for Mojolicious applications
