@@ -49,7 +49,7 @@ All available options
     #!/usr/bin/env perl
     use Mojolicious::Lite;
     
-    plugin Model => {
+    plugin 'Model::DB' => {
         # Mojolicious::Plugin::Model::DB
         namespace => 'DataBase', # default is DB
     
