@@ -75,4 +75,5 @@ see more in [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::P
 Namespace to load models from, defaults to `$moniker::Model::DB`.
 
 ## more options
-    see in [Mojolicious::Plugin::Model#OPTIONS](https://metacpan.org/pod/Mojolicious::Plugin::Model#OPTIONS)
+
+see in [Mojolicious::Plugin::Model#OPTIONS](https://metacpan.org/pod/Mojolicious::Plugin::Model#OPTIONS)
