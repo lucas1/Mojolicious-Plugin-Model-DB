@@ -1,6 +1,7 @@
 # NAME
  
-Mojolicious::Plugin::Model::DB - Model DB for Mojolicious applications
+Mojolicious::Plugin::Model::DB - It is an extension of the module [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::Plugin::Model)
+for Mojolicious applications
 
 # SYNOPSIS
 
