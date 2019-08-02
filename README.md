@@ -41,4 +41,20 @@ Mojolicious::Lite application
         $c->render(text => 'Save person foo');
     };
  
-    app->start;    
+    app->start;
+    
+All available options
+
+    #!/usr/bin/env perl
+    use Mojolicious::Lite;
+    
+    plugin Model => {
+        # Mojolicious::Plugin::Model::DB
+        namespace => 'DataBase', # default is DB
+    
+        # Mojolicious::Plugin::Model
+        namespaces   => ['MyApp::Model', 'MyApp::CLI::Model'],
+        base_classes => ['MyApp::Model'],
+        default      => 'MyApp::Model::Pg',
+        params => {Pg => {uri => 'postgresql://user@/mydb'}}
+    };
