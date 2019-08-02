@@ -77,3 +77,18 @@ Namespace to load models from, defaults to `$moniker::Model::DB`.
 ## more options
 
 see in [Mojolicious::Plugin::Model#OPTIONS](https://metacpan.org/pod/Mojolicious::Plugin::Model#OPTIONS)
+
+# HELPERS
+
+[Mojolicious::Plugin::Model::DB](https://metacpan.org/pod/Mojolicious::Plugin::Model::DB) implements the following helpers.
+
+## db
+
+    my $db = $c->db($name);
+ 
+Load, create and cache a model object with given name. Default class for
+model db `camelize($moniker)::Model::DB`. Return `undef` if model db not found.
+
+## more helpers
+
+see in [Mojolicious::Plugin::Model#HELPERS](https://metacpan.org/pod/Mojolicious::Plugin::Model#HELPERS)
