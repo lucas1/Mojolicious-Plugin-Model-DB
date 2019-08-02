@@ -92,3 +92,18 @@ model db `camelize($moniker)::Model::DB`. Return `undef` if model db not found.
 ## more helpers
 
 see in [Mojolicious::Plugin::Model#HELPERS](https://metacpan.org/pod/Mojolicious::Plugin::Model#HELPERS)
+
+# SEE ALSO
+
+[Mojolicious](https://metacpan.org/pod/Mojolicious), [Mojolicious::Guides](https://metacpan.org/pod/Mojolicious::Guides),
+[http://mojolicio.us](http://mojolicio.us), [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::Plugin::Model).
+
+# AUTHOR
+
+Lucas Tiago de Moraes `lucastiagodemoraes@gmail.com`
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2019 by Lucas Tiago de Moraes.
+
+This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.
