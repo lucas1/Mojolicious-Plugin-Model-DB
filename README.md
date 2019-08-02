@@ -64,3 +64,15 @@ All available options
  
 [Mojolicious::Plugin::Model::DB](https://metacpan.org/pod/Mojolicious::Plugin::Model::DB) It is an extension of the module Mojolicious::Plugin::Model,
 see more in [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::Plugin::Model)
+
+# OPTIONS
+
+## namespace
+ 
+    # Mojolicious::Lite
+    plugin Model => {namespace => 'DataBase'}; # default DB
+    
+Namespace to load models from, defaults to `$moniker::Model::DB`.
+
+## more options
+    see in [Mojolicious::Plugin::Model#OPTIONS](https://metacpan.org/pod/Mojolicious::Plugin::Model#OPTIONS)
