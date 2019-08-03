@@ -63,14 +63,14 @@ All available options
 # DESCRIPTION
  
 [Mojolicious::Plugin::Model::DB](https://metacpan.org/pod/Mojolicious::Plugin::Model::DB) It is an extension of the module Mojolicious::Plugin::Model,
-see more in [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::Plugin::Model)
+The intention is to separate models of database from other models. See more in [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::Plugin::Model)
 
 # OPTIONS
 
 ## namespace
  
     # Mojolicious::Lite
-    plugin Model => {namespace => 'DataBase'}; # default DB
+    plugin 'Model::DB' => {namespace => 'DataBase'}; # It's will load from $moniker::Model::DataBase
     
 Namespace to load models from, defaults to `$moniker::Model::DB`.
 
