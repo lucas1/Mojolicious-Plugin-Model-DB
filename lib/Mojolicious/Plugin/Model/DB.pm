@@ -2,7 +2,7 @@ package Mojolicious::Plugin::Model::DB;
 use Mojo::Base 'Mojolicious::Plugin::Model';
 use Moo;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 after register => sub {
     my ($plugin, $app, $conf) = @_;

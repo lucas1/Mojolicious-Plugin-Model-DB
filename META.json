@@ -32,7 +32,8 @@
       },
       "runtime" : {
          "requires" : {
-            "Mojolicious::Plugin::Model" : "0"
+            "Mojolicious::Plugin::Model" : "0",
+            "Moo" : "0"
          }
       }
    },
@@ -47,6 +48,6 @@
          "web" : "https://github.com/lucas1/Mojolicious-Plugin-Model-DB"
       }
    },
-   "version" : "0.04",
+   "version" : "0.05",
    "x_serialization_backend" : "JSON::PP version 4.02"
 }
