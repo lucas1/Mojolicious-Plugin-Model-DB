@@ -2,7 +2,7 @@ package Mojolicious::Plugin::Model::DB;
 use Mojo::Base 'Mojolicious::Plugin::Model';
 use Moo;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 after register => sub {
     my ($plugin, $app, $conf) = @_;
@@ -60,7 +60,7 @@ Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious:
 
 =head1 SYNOPSIS
 
-Model DB Users
+Model DB Person
 
     package MyApp::Model::DB::Person;
     use Mojo::Base 'MojoX::Model';
