@@ -5,7 +5,7 @@ for Mojolicious applications
 
 # SYNOPSIS
 
-Model Users
+Model DB Person
  
     package MyApp::Model::DB::Person;
     use Mojo::Base 'MojoX::Model';
