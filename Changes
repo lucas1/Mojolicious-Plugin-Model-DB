@@ -1,3 +1,6 @@
+0.06 2019-08-04T00:15:00Z
+    - Changed Moo to Class::Method::Modifiers
+
 0.05 2019-08-04T00:01:00Z
     - Added module Moo like dependency.
 

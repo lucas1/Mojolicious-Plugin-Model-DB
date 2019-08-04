@@ -18,8 +18,8 @@ no_index:
     - t
     - inc
 requires:
+  Class::Method::Modifiers: '0'
   Mojolicious::Plugin::Model: '0'
-  Moo: '0'
 resources:
   bugtracker: https://github.com/lucas1/Mojolicious-Plugin-Model-DB/issues
   homepage: https://github.com/lucas1/Mojolicious-Plugin-Model-DB
