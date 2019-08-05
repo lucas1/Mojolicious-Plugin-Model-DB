@@ -28,6 +28,7 @@ WriteMakefile(
     },
     
     PREREQ_PM => {
+        'Mojo::Base' => 0,
         'Class::Method::Modifiers' => 0,
         'Mojolicious::Plugin::Model' => 0
     },

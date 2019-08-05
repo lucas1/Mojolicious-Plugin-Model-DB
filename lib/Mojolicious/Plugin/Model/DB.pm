@@ -2,7 +2,7 @@ package Mojolicious::Plugin::Model::DB;
 use Mojo::Base 'Mojolicious::Plugin::Model';
 use Class::Method::Modifiers qw/after/;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 after register => sub {
     my ($plugin, $app, $conf) = @_;
