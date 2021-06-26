@@ -33,7 +33,7 @@
       "runtime" : {
          "requires" : {
             "Class::Method::Modifiers" : "0",
-            "Mojolicious::Plugin::Model" : "0.10",
+            "Mojolicious::Plugin::Model" : "0.11",
             "Storable" : "0",
             "perl" : "5.010001"
          }

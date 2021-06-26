@@ -31,14 +31,14 @@ WriteMakefile(
     PREREQ_PM => {
         'Storable' => 0,
         'Class::Method::Modifiers' => 0,
-        'Mojolicious::Plugin::Model' => '0.10'
+        'Mojolicious::Plugin::Model' => '0.11'
     },
 
     TEST_REQUIRES => {
         'Test::More' => 0,
         'Storable' => 0,
-        'Class::Method::Modifiers' => 0,        
-        'Mojolicious::Plugin::Model' => '7.13',
+        'Class::Method::Modifiers' => 0,
+        'Mojolicious::Plugin::Model' => '0.11',
         'Mojo::SQLite' => 0
     },
 
