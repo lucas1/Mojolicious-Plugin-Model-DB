@@ -1,37 +1,72 @@
 package Mojolicious::Plugin::Model::DB;
 use Mojo::Base 'Mojolicious::Plugin::Model';
 use Mojo::Util 'camelize';
+use Mojo::Loader qw/load_class/;
 use Storable qw/dclone/;
 use Class::Method::Modifiers qw/after/;
 
-our $VERSION = '0.10';
+our $VERSION = '1.00';
+
+has 'databases' => sub {
+    [qw/Pg mysql SQLite Redis/]
+};
 
 after register => sub {
     my ($plugin, $app, $conf) = @_;
-    
+
     $conf = dclone $conf;
+
+    # check if need camelize moniker
+    my $path = $app->home . '/lib/' . $app->moniker;
+    $app->moniker(camelize($app->moniker)) unless -d $path;
+
     my $namespace  = $conf->{namespace}  // 'DB';
-    my $namespaces = $conf->{namespaces} // [camelize($app->moniker) . '::Model'];
-    @{$conf->{namespaces}} = map $_ . "::$namespace", @$namespaces;       
-    
+    my $namespaces = $conf->{namespaces} // [$app->moniker . '::Model'];
+    @{$conf->{namespaces}} = map $_ . "::$namespace", @$namespaces;
+    my $databases = _load_class_databases($plugin, $conf);
+
     $app->helper(
         db => sub {
             my ($self, $name) = @_;
             $name //= $conf->{default};
-            
+
             my $model;
-            return $model if $model = $plugin->{models}{$name};         
-            
+            return $model if $model = $plugin->{models}{$name};
+
             my $class = Mojolicious::Plugin::Model::_load_class_for_name($plugin, $app, $conf, $name)
                 or return undef;
-            
+
+            # define attr to database
+            $class->attr($_) for keys %{$databases};
+
             my $params = $conf->{params}{$name};
-            $model = $class->new(ref $params eq 'HASH' ? %$params : (), app => $app);
+            $model = $class->new(
+                ref $params eq 'HASH' ? %$params : (),
+                %$databases,
+                app => $app
+            );
             $plugin->{models}{$name} = $model;
             return $model;
         }
-    );    
+    );
 };
+
+sub _load_class_databases {
+    my ($plugin, $conf) = @_;
+
+    my $databases = {};
+
+    for (@{$plugin->databases}) {
+        if (defined $conf->{$_}) {
+            my $class = 'Mojo::' . $_;
+            my $e     = load_class $class;
+
+            $databases->{lc($_)} = $class->new($conf->{$_});
+        }
+    }
+
+    return $databases;
+}
 
 1;
 
@@ -39,7 +74,7 @@ after register => sub {
 
 =head1 NAME
 
-Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious::Plugin::Model> for Mojolicious applications. 
+Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious::Plugin::Model> for Mojolicious applications.
 
 =head1 SYNOPSIS
 
@@ -47,10 +82,10 @@ Model DB Person
 
     package MyApp::Model::DB::Person;
     use Mojo::Base 'MojoX::Model';
- 
+
     sub save {
         my ($self, $foo) = @_;
-        
+
         $mysql->db->insert(
             'foo',
             {
@@ -58,47 +93,53 @@ Model DB Person
             }
         );
     }
- 
+
     1;
-    
+
 Mojolicious::Lite application
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
- 
+
     use lib 'lib';
- 
+
     plugin 'Model::DB';
- 
+
     any '/' => sub {
         my $c = shift;
- 
+
         my $foo = $c->param('foo') || '';
-        
+
         # model db
         $c->db('person')->save($foo);
-        
+
         $c->render(text => 'Save person foo');
     };
- 
+
     app->start;
-    
+
 All available options
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
-    
+
     plugin 'Model::DB' => {
         # Mojolicious::Plugin::Model::DB
         namespace => 'DataBase', # default is DB
-    
+
+        # databases options
+        Pg           => 'postgresql://user@/mydb', # this will instantiate Mojo::Pg, in model get $self->pg,
+        mysql        => 'mysql://user@/mydb', # this will instantiate Mojo::mysql, in model get $self->mysql,
+        SQLite       => 'sqlite:test.db', # this will instantiate Mojo::SQLite, in model get $self->sqlite,
+        Redis        => 'redis://localhost', # this will instantiate Mojo::Redis, in model get $self->redis,
+
         # Mojolicious::Plugin::Model
         namespaces   => ['MyApp::Model', 'MyApp::CLI::Model'],
         base_classes => ['MyApp::Model'],
         default      => 'MyApp::Model::Pg',
-        params => {Pg => {uri => 'postgresql://user@/mydb'}}
+        params       => {Pg => {uri => 'postgresql://user@/mydb'}}
     };
-    
+
 =head1 DESCRIPTION
 
 Mojolicious::Plugin::Model::DB It is an extension of the module Mojolicious::Plugin::Model, the intention is to separate models of database from other models. See more in L<Mojolicious::Plugin::Model>
@@ -109,7 +150,7 @@ Mojolicious::Plugin::Model::DB It is an extension of the module Mojolicious::Plu
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {namespace => 'DataBase'}; # It's will load from $moniker::Model::DataBase
-    
+
 Namespace to load models from, defaults to C<$moniker::Model::DB>.
 
 =head2 more options
@@ -123,7 +164,7 @@ L<Mojolicious::Plugin::Model::DB> implements the following helpers.
 =head2 db
 
     my $db = $c->db($name);
-    
+
 Load, create and cache a model object with given name. Default class for
 model db C<camelize($moniker)::Model::DB>. Return `undef` if model db not found.
 

@@ -5,6 +5,9 @@ META.json
 META.yml
 README.md
 t/base.t
+t/database.t
+t/demo.db
 t/namespace.t
+t/lib/Database/Model/DB/Demo.pm
 lib/Mojolicious/Plugin/Model/DB.pm
 cpanfile
