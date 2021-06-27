@@ -138,7 +138,7 @@ Namespace to load models from, defaults to `$moniker::Model::DB`.
 
 ## databases
 
-## Mojo::Pg
+#### Mojo::Pg
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {Pg => 'postgresql://user@/mydb'};
@@ -161,7 +161,7 @@ Namespace to load models from, defaults to `$moniker::Model::DB`.
 
     1;
 
-### Mojo::mysql
+#### Mojo::mysql
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {mysql => 'mysql://user@/mydb'};
@@ -184,7 +184,7 @@ Namespace to load models from, defaults to `$moniker::Model::DB`.
 
     1;
 
-### Mojo::SQLite
+#### Mojo::SQLite
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {SQLite => 'sqlite:test.db'};
@@ -207,7 +207,7 @@ Namespace to load models from, defaults to `$moniker::Model::DB`.
 
     1;
 
-### Mojo::Redis
+#### Mojo::Redis
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {Redis => 'redis://localhost'};
@@ -224,7 +224,7 @@ Namespace to load models from, defaults to `$moniker::Model::DB`.
 
     1;
 
-### Mojo::mysql and Mojo::Redis
+#### Mojo::mysql and Mojo::Redis
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {
