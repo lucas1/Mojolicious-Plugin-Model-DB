@@ -4,7 +4,7 @@ use Mojolicious::Lite;
 
 plugin 'Model::DB' => {
     namespaces => ['Local::Model'],
-    SQLite     => 'sqlite:t\demo.db'
+    SQLite     => 'sqlite:t/demo.db'
 };
 
 get '/:id/:type' => sub {

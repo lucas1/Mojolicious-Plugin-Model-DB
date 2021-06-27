@@ -5,7 +5,7 @@ use Mojo::Loader qw/load_class/;
 use Storable qw/dclone/;
 use Class::Method::Modifiers qw/after/;
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 has 'databases' => sub {
     [qw/Pg mysql SQLite Redis/]
