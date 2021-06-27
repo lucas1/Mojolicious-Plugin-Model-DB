@@ -38,7 +38,7 @@ Model DB Person
 
     1;
 
-Mojolicious::Lite application
+#### Mojolicious::Lite application
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
@@ -62,7 +62,7 @@ Mojolicious::Lite application
 
     app->start;
 
-All available options
+#### All available options
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
@@ -84,7 +84,7 @@ All available options
         params       => {Pg => {uri => 'postgresql://user@/mydb'}}
     };
 
-Mojolicious::Lite application
+#### Mojolicious::Lite application
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
@@ -105,20 +105,26 @@ Mojolicious::Lite application
 
     app->start;
 
-All available options
+#### All available options
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
 
     plugin 'Model::DB' => {
         # Mojolicious::Plugin::Model::DB
-        namespace => 'DataBase', # default is DB
+        namespace    => 'DataBase',                # default is DB
+
+        # databases options
+        Pg           => 'postgresql://user@/mydb', # this will instantiate Mojo::Pg, in model get $self->pg,
+        mysql        => 'mysql://user@/mydb',      # this will instantiate Mojo::mysql, in model get $self->mysql,
+        SQLite       => 'sqlite:test.db',          # this will instantiate Mojo::SQLite, in model get $self->sqlite,
+        Redis        => 'redis://localhost',       # this will instantiate Mojo::Redis, in model get $self->redis,
 
         # Mojolicious::Plugin::Model
         namespaces   => ['MyApp::Model', 'MyApp::CLI::Model'],
         base_classes => ['MyApp::Model'],
         default      => 'MyApp::Model::Pg',
-        params => {Pg => {uri => 'postgresql://user@/mydb'}}
+        params       => {Pg => {uri => 'postgresql://user@/mydb'}}
     };
 
 # DESCRIPTION
