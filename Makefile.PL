@@ -39,7 +39,7 @@ WriteMakefile(
         'Storable' => 0,
         'Class::Method::Modifiers' => 0,
         'Mojolicious::Plugin::Model' => '0.11',
-        'Mojo::SQLite' => 0
+        'Mojo::SQLite' => '2.000'
     },
 
     test => {

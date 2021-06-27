@@ -41,7 +41,7 @@
       "test" : {
          "requires" : {
             "Class::Method::Modifiers" : "0",
-            "Mojo::SQLite" : "0",
+            "Mojo::SQLite" : "2.000",
             "Mojolicious::Plugin::Model" : "7.13",
             "Storable" : "0",
             "Test::More" : "0"
@@ -59,6 +59,6 @@
          "web" : "https://github.com/lucas1/Mojolicious-Plugin-Model-DB"
       }
    },
-   "version" : "1.00",
+   "version" : "1.01",
    "x_serialization_backend" : "JSON::PP version 4.04"
 }

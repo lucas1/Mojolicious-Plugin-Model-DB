@@ -5,7 +5,7 @@ use Mojo::Loader qw/load_class/;
 use Storable qw/dclone/;
 use Class::Method::Modifiers qw/after/;
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 has 'databases' => sub {
     [qw/Pg mysql SQLite Redis/]
@@ -78,6 +78,21 @@ Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious:
 
 =head1 SYNOPSIS
 
+Model Functions
+
+    package MyApp::Model::Functions;
+    use Mojo::Base 'MojoX::Model';
+
+    sub trim {
+        my ($self, $value) = @_;
+
+        $value =~ s/^\s+|\s+$//g;
+
+        return $value;
+    }
+
+    1;
+
 Model DB Person
 
     package MyApp::Model::DB::Person;
@@ -86,7 +101,7 @@ Model DB Person
     sub save {
         my ($self, $foo) = @_;
 
-        $mysql->db->insert(
+        $self->mysql->db->insert(
             'foo',
             {
                 foo => $foo
@@ -103,12 +118,14 @@ Mojolicious::Lite application
 
     use lib 'lib';
 
-    plugin 'Model::DB';
+    plugin 'Model::DB' => {mysql => 'mysql://user@/mydb'};
 
     any '/' => sub {
         my $c = shift;
 
-        my $foo = $c->param('foo') || '';
+        my $foo = $c->param('foo')
+                ? $c->model('functions')->trim($c->param('foo'))
+                : '';
 
         # model db
         $c->db('person')->save($foo);
@@ -125,13 +142,13 @@ All available options
 
     plugin 'Model::DB' => {
         # Mojolicious::Plugin::Model::DB
-        namespace => 'DataBase', # default is DB
+        namespace    => 'DataBase',                # default is DB
 
         # databases options
         Pg           => 'postgresql://user@/mydb', # this will instantiate Mojo::Pg, in model get $self->pg,
-        mysql        => 'mysql://user@/mydb', # this will instantiate Mojo::mysql, in model get $self->mysql,
-        SQLite       => 'sqlite:test.db', # this will instantiate Mojo::SQLite, in model get $self->sqlite,
-        Redis        => 'redis://localhost', # this will instantiate Mojo::Redis, in model get $self->redis,
+        mysql        => 'mysql://user@/mydb',      # this will instantiate Mojo::mysql, in model get $self->mysql,
+        SQLite       => 'sqlite:test.db',          # this will instantiate Mojo::SQLite, in model get $self->sqlite,
+        Redis        => 'redis://localhost',       # this will instantiate Mojo::Redis, in model get $self->redis,
 
         # Mojolicious::Plugin::Model
         namespaces   => ['MyApp::Model', 'MyApp::CLI::Model'],
@@ -142,7 +159,8 @@ All available options
 
 =head1 DESCRIPTION
 
-Mojolicious::Plugin::Model::DB It is an extension of the module Mojolicious::Plugin::Model, the intention is to separate models of database from other models. See more in L<Mojolicious::Plugin::Model>
+Mojolicious::Plugin::Model::DB It is an extension of the module Mojolicious::Plugin::Model, the intention is to separate models of database from other models,
+using Mojolicious::Plugin::Model::DB you can continue using all functions of Mojolicious::Plugin::Model. See more in L<Mojolicious::Plugin::Model>.
 
 =head1 OPTIONS
 
@@ -152,6 +170,127 @@ Mojolicious::Plugin::Model::DB It is an extension of the module Mojolicious::Plu
     plugin 'Model::DB' => {namespace => 'DataBase'}; # It's will load from $moniker::Model::DataBase
 
 Namespace to load models from, defaults to C<$moniker::Model::DB>.
+
+=head2 databases
+
+=head4 Mojo::Pg
+
+    # Mojolicious::Lite
+    plugin 'Model::DB' => {Pg => 'postgresql://user@/mydb'};
+
+    # Model::DB
+    package MyApp::Model::DB::Foo;
+    use Mojo::Base 'MojoX::Model';
+
+    sub find {
+        my ($self, $id) = @_;
+
+        return $self->pg->db->select(
+            'foo',
+            undef,
+            {
+                id => $id
+            }
+        )->hash;
+    }
+
+    1;
+
+=head4 Mojo::mysql
+
+    # Mojolicious::Lite
+    plugin 'Model::DB' => {mysql => 'mysql://user@/mydb'};
+
+    # Model::DB
+    package MyApp::Model::DB::Foo;
+    use Mojo::Base 'MojoX::Model';
+
+    sub find {
+        my ($self, $id) = @_;
+
+        return $self->mysql->db->select(
+            'foo',
+            undef,
+            {
+                id => $id
+            }
+        )->hash;
+    }
+
+    1;
+
+=head4 Mojo::SQLite
+
+    # Mojolicious::Lite
+    plugin 'Model::DB' => {SQLite => 'sqlite:test.db'};
+
+    # Model::DB
+    package MyApp::Model::DB::Foo;
+    use Mojo::Base 'MojoX::Model';
+
+    sub find {
+        my ($self, $id) = @_;
+
+        return $self->sqlite->db->select(
+            'foo',
+            undef,
+            {
+                id => $id
+            }
+        )->hash;
+    }
+
+    1;
+
+=head4 Mojo::Redis
+
+    # Mojolicious::Lite
+    plugin 'Model::DB' => {Redis => 'redis://localhost'};
+
+    # Model::DB
+    package MyApp::Model::DB::Foo;
+    use Mojo::Base 'MojoX::Model';
+
+    sub find {
+        my ($self, $key) = @_;
+
+        return $self->redis->db->get($key);
+    }
+
+    1;
+
+=head4 Mojo::mysql and Mojo::Redis
+
+    # Mojolicious::Lite
+    plugin 'Model::DB' => {
+        mysql => 'mysql://user@/mydb',
+        Redis => 'redis://localhost'
+    };
+
+    # Model::DB
+    package MyApp::Model::DB::Foo;
+    use Mojo::Base 'MojoX::Model';
+
+    sub find {
+        my ($self, $id) = @_;
+
+        my $cache = $self->redis->db->get('foo:' . $id);
+        return $cache if $cache;
+
+        my $foo = $self->mysql->db->select(
+            'foo',
+            undef,
+            {
+                id => $id
+            }
+        )->hash;
+
+        $self->redis->db->set('foo:' . $id, $foo);
+
+        return $foo;
+    }
+
+    1;
 
 =head2 more options
 
