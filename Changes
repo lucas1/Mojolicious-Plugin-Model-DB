@@ -1,5 +1,7 @@
-1.01 2021-06-26T16:27:00Z
-    
+1.01 2021-06-27T00:11:00Z
+    - Added version minimal to Mojo::SQLite.
+    - Added more information in doc.
+    - Solved error in tests with Windows.
 
 1.00 2021-06-25T21:11:00Z
     - Added Mojo::Pg, Mojo::mysql, Mojo::SQLite and Mojo::Redis in database options,
