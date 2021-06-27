@@ -78,7 +78,7 @@ Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious:
 
 =head1 SYNOPSIS
 
-Model Functions
+=head4 Model Functions
 
     package MyApp::Model::Functions;
     use Mojo::Base 'MojoX::Model';
@@ -93,7 +93,7 @@ Model Functions
 
     1;
 
-Model DB Person
+=head4 Model DB Person
 
     package MyApp::Model::DB::Person;
     use Mojo::Base 'MojoX::Model';
@@ -111,7 +111,7 @@ Model DB Person
 
     1;
 
-Mojolicious::Lite application
+=head4 Mojolicious::Lite application
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
@@ -135,7 +135,7 @@ Mojolicious::Lite application
 
     app->start;
 
-All available options
+=head4 All available options
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
