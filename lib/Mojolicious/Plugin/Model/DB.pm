@@ -78,7 +78,7 @@ Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious:
 
 =head1 SYNOPSIS
 
-=head4 Model Functions
+Model Functions
 
     package MyApp::Model::Functions;
     use Mojo::Base 'MojoX::Model';
@@ -93,7 +93,7 @@ Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious:
 
     1;
 
-=head4 Model DB Person
+Model DB Person
 
     package MyApp::Model::DB::Person;
     use Mojo::Base 'MojoX::Model';
@@ -111,7 +111,7 @@ Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious:
 
     1;
 
-=head4 Mojolicious::Lite application
+Mojolicious::Lite application
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
@@ -135,7 +135,7 @@ Mojolicious::Plugin::Model::DB - It is an extension of the module L<Mojolicious:
 
     app->start;
 
-=head4 All available options
+All available options
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
@@ -173,7 +173,7 @@ Namespace to load models from, defaults to C<$moniker::Model::DB>.
 
 =head2 databases
 
-=head4 Mojo::Pg
+=head3 Mojo::Pg
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {Pg => 'postgresql://user@/mydb'};
@@ -196,7 +196,7 @@ Namespace to load models from, defaults to C<$moniker::Model::DB>.
 
     1;
 
-=head4 Mojo::mysql
+=head3 Mojo::mysql
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {mysql => 'mysql://user@/mydb'};
@@ -219,7 +219,7 @@ Namespace to load models from, defaults to C<$moniker::Model::DB>.
 
     1;
 
-=head4 Mojo::SQLite
+=head3 Mojo::SQLite
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {SQLite => 'sqlite:test.db'};
@@ -242,7 +242,7 @@ Namespace to load models from, defaults to C<$moniker::Model::DB>.
 
     1;
 
-=head4 Mojo::Redis
+=head3 Mojo::Redis
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {Redis => 'redis://localhost'};
@@ -259,7 +259,7 @@ Namespace to load models from, defaults to C<$moniker::Model::DB>.
 
     1;
 
-=head4 Mojo::mysql and Mojo::Redis
+=head3 Mojo::mysql and Mojo::Redis
 
     # Mojolicious::Lite
     plugin 'Model::DB' => {

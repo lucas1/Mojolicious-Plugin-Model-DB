@@ -5,7 +5,7 @@ for Mojolicious applications
 
 # SYNOPSIS
 
-#### Model Functions
+Model Functions
 
     package MyApp::Model::Functions;
     use Mojo::Base 'MojoX::Model';
@@ -20,7 +20,7 @@ for Mojolicious applications
 
     1;
 
-#### Model DB Person
+Model DB Person
 
     package MyApp::Model::DB::Person;
     use Mojo::Base 'MojoX::Model';
@@ -38,7 +38,7 @@ for Mojolicious applications
 
     1;
 
-#### Mojolicious::Lite application
+Mojolicious::Lite application
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
@@ -62,7 +62,7 @@ for Mojolicious applications
 
     app->start;
 
-#### All available options
+All available options
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
