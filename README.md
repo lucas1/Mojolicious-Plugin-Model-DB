@@ -28,12 +28,12 @@ for Mojolicious applications
     sub save {
         my ($self, $foo) = @_;
 
-        $self->mysql->db->insert(
+        return $self->mysql->db->insert(
             'foo',
             {
                 foo => $foo
             }
-        );
+        )->last_insert_id;
     }
 
     1;
@@ -51,13 +51,13 @@ for Mojolicious applications
         my $c = shift;
 
         my $foo = $c->param('foo')
-                ? $c->model('functions')->trim($c->param('foo'))
+                ? $c->model('functions')->trim($c->param('foo')) # model functions
                 : '';
 
-        # model db
-        $c->db('person')->save($foo);
+        # model db Person
+        my $id = $c->db('person')->save($foo);
 
-        $c->render(text => 'Save person foo');
+        $c->render(text => $id);
     };
 
     app->start;
