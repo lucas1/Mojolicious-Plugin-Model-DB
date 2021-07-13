@@ -1,4 +1,5 @@
 1.04 2021-07-13T07:50:00Z
+    - Added die with the error if some database does not loader.
     - Added changes to work with latest version of Mojolicious::Plugin::Model.
     - Improved detection of default namespace like Mojolicious::Plugin::Model.
 

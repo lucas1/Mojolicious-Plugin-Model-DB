@@ -61,6 +61,7 @@ sub _load_class_databases {
         if (defined $conf->{$_}) {
             my $class = 'Mojo::' . $_;
             my $e     = load_class $class;
+            die "Loading '$class' failed: $e" if $e;
 
             $databases->{lc($_)} = $class->new($conf->{$_});
         }
