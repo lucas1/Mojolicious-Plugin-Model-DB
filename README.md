@@ -101,9 +101,11 @@ See more in [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::P
 ## namespace
 
     # Mojolicious::Lite
-    plugin 'Model::DB' => {namespace => 'DataBase'}; # It's will load from $moniker::Model::DataBase
+    plugin 'Model::DB' => {namespace => 'DataBase'}; # It's will load from $moniker::DataBase
 
-Namespace to load models from, defaults to `$moniker::Model::DB`.
+Namespace to load models from, defaults to `$moniker::DB`.
+
+`$moniker::Model::DB` namespace is deprecated. It will be removed on updates future.
 
 ## databases
 

@@ -5,7 +5,7 @@ use Mojo::Loader qw/load_class/;
 use Storable qw/dclone/;
 use Class::Method::Modifiers qw/after/;
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 
 has 'databases' => sub {
     [qw/Pg mysql SQLite Redis/]
@@ -21,7 +21,7 @@ after register => sub {
     $moniker    = $app->moniker unless -d $app->home . '/lib/' . $moniker;
 
     my $namespace  = $conf->{namespace}  // 'DB';
-    my $namespaces = $conf->{namespaces} // [$moniker . '::Model'];
+    my $namespaces = $conf->{namespaces} // [$moniker, $moniker . '::Model'];
     @{$conf->{namespaces}} = map $_ . "::$namespace", @$namespaces;
     my $databases = _load_class_databases($plugin, $conf);
 
@@ -35,7 +35,14 @@ after register => sub {
 
             my $class = Mojolicious::Plugin::Model::_load_class_for_name(
                 $plugin, $app, $conf, $name, $moniker
-            ) or return undef;
+            ) or return;
+            
+            # warning namespace deprecated
+            if (!$conf->{namespaces} && $class =~ /::Model::${namespace}::/) {
+                my ($moniker_current) = $class =~ /^([\w:]+)::Model::/;
+                
+                warn "${moniker_current}::Model::${namespace} namespace is deprecated. It will be removed on updates future!";
+            }
 
             # define attr to database
             $class->attr($_) for keys %{$databases};
@@ -178,14 +185,16 @@ All available options
 Mojolicious::Plugin::Model::DB It is an extension of the module Mojolicious::Plugin::Model, the intention is to separate models of database from other models,
 using Mojolicious::Plugin::Model::DB you can continue using all functions of Mojolicious::Plugin::Model. See more in L<Mojolicious::Plugin::Model>.
 
-=head1 OPTIONS
+=head1 OPTIONS/  
 
 =head2 namespace
 
     # Mojolicious::Lite
-    plugin 'Model::DB' => {namespace => 'DataBase'}; # It's will load from $moniker::Model::DataBase
+    plugin 'Model::DB' => {namespace => 'DataBase'}; # It's will load from $moniker::DataBase and $moniker::Model::DataBase
 
-Namespace to load models from, defaults to C<$moniker::Model::DB>.
+Namespace to load models from, defaults to C<$moniker::DB>.
+
+C<$moniker::Model::DB> namespace is deprecated. It will be removed on updates future.
 
 =head2 databases
 
