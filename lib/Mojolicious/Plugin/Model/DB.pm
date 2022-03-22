@@ -194,7 +194,7 @@ using Mojolicious::Plugin::Model::DB you can continue using all functions of Moj
 
 Namespace to load models from, defaults to C<$moniker::DB>.
 
-C<$moniker::Model::DB> namespace is deprecated. It will be removed on updates future.
+C<$moniker::Model::DB> namespace is deprecated. It's will be removed in updates future.
 
 =head2 databases
 

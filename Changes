@@ -1,6 +1,6 @@
 1.06 2022-03-22T16:01:00Z
     - Added $moniker::DB namespace as default.
-    - $moniker::Model::DB namespace is deprecated. It will be removed on updates future.
+    - $moniker::Model::DB namespace is deprecated. It's will be removed in updates future.
 
 1.05 2021-12-19T23:18:00Z
     - Added code to accept set database by reference

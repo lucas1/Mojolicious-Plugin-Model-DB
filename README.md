@@ -105,7 +105,7 @@ See more in [Mojolicious::Plugin::Model](https://metacpan.org/pod/Mojolicious::P
 
 Namespace to load models from, defaults to `$moniker::DB`.
 
-`$moniker::Model::DB` namespace is deprecated. It will be removed on updates future.
+`$moniker::Model::DB` namespace is deprecated. It's will be removed in updates future.
 
 ## databases
 
